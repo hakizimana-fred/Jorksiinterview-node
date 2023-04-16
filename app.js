@@ -5,7 +5,9 @@ import passport from 'passport'
 import authRoutes from './routes/auth.routes.js'
 import postRoutes from './routes/post.routes.js'
 import { connectDB } from './config/db.js'
+import dotenv from 'dotenv'
 
+dotenv.config()
 
 
 configPassportJwt(passport)

@@ -24,7 +24,7 @@ router.post('/user/register', async (req, res) => {
 
         await newUser.save() 
 
-        const token = jwt.sign({ id: newUser._id }, 'SECRET', { expiresIn: '1h' });
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         return res.status(200).json({ success: true, message: "User successfully registered", token });
 
@@ -49,7 +49,7 @@ router.post('/user/login', async (req, res) => {
         if (!isPasswordValid) return res.status(400).json({success: false, message: "Invalid credentials"})
 
         // generating token 
-        const token = jwt.sign({ id: userExists._id }, 'SECRET', { expiresIn: '1h' });
+        const token = jwt.sign({ id: userExists._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         return res.status(200).json({success: true, message: "User successfully registered", token})
 
