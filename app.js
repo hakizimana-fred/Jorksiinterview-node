@@ -2,7 +2,8 @@ import express from 'express'
 import configMiddleware from './middlewares/app.middleware.js'
 import configPassportJwt from './config/passport.js'
 import passport from 'passport'
-import authRoutes from './routes/auth.js'
+import authRoutes from './routes/auth.routes.js'
+import postRoutes from './routes/post.routes.js'
 import { connectDB } from './config/db.js'
 
 
@@ -13,10 +14,11 @@ const main = async () => {
     try {
 
     const app = express()
-    // connect to db
     // middlewares
     configMiddleware(app)
+    // routes
     app.use('/api/v1', authRoutes) // user routes (Login, Register)
+    app.use('/api/v1', postRoutes) // post routes 
 
     await connectDB()
 
