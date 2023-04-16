@@ -133,5 +133,22 @@ router.delete('/delete/post/:id', passport.authenticate('jwt', {session: false})
   }
 })
 
+router.get('/get/latlong/post', passport.authenticate('jwt', {session: false}), async function(req, res) {
+    try {
+        let { latitude, longitude} = req.query
+        latitude = parseFloat(latitude)
+        longitude = parseFloat(longitude)
+       
+        if (latitude & longitude) {
+            const post = await Post.find({geolocation:{ latitude, longitude} })
+            return res.status(200).json({success: true, message: "Successfully fetched post", post})
+        }
+
+    }catch(e) {
+             return res.status(400).json({success: false, message: "Something went wrong", errors: e.message})
+    }
+})
+
+
 
 export default router
